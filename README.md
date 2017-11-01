@@ -24,7 +24,7 @@ npm install --save-dev webpack
 
 更新：如果有老项目但是不想把之前的依赖包删除进入package.json中，
 
-```json
+```js
  "devDependencies": {
     "webpack": "^3.8.1"
   }
@@ -40,7 +40,7 @@ npm install --save-dev webpack
 
 基本结构
 
-```json
+```js
 
 module.exports={
     entry:{},      //入口文件的配置项
@@ -58,7 +58,7 @@ module.exports={
 
 ### 配置入口以及出口文件
 
-```json
+```js
 const path = require('path');
 module.exports = {
     entry:{
@@ -73,7 +73,7 @@ module.exports = {
 
 多入口多出口
 
-```json
+```js
 entry:{
         entry:'./src/entry.js',
         entry2:'./src/entry2.js'
@@ -87,7 +87,7 @@ entry:{
 
 ## 热更新
 
-```json
+```js
 devServer:{
     contentBase:path.resolve(__dirname,'dist'),
     host:'192.168.203.1',
@@ -111,7 +111,7 @@ npm install webpack-dev-server --save-dev
 
 > 这是因为它安装在node_module中，解决办法是在package.json中修改`script`
 
-```json
+```js
 "scripts": {
     "server": "webpack-dev-server"
   }
@@ -131,7 +131,7 @@ npm install css-loader --save-dev
 
 在`module`中添加`rules`
 
-```json
+```js
 module:{
     rules:[
         {
@@ -156,7 +156,7 @@ const uglify = require('uglifyjs-webpack-plugin');
 
 然后在`package.json`添加`new uglify()`
 
-```json
+```js
 plugins:[
     new uglify()
 ]
@@ -166,7 +166,7 @@ plugins:[
 
 引入包
 
-```json
+```js
 const htmlPlugin = require('html-webpack-plugin');
 ```
 
@@ -178,7 +178,7 @@ npm install --save-dev html-webpack-plugin
 
 然后在`package.json`添加`htmlPlugin`
 
-```json
+```js
  plugins:[
     new htmlPlugin({
         minify:{
