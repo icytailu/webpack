@@ -78,11 +78,10 @@ entry:{
         entry:'./src/entry.js',
         entry2:'./src/entry2.js'
     },
-    output:{
-        path:path.resolve(__dirname,'dist'),
-        filename:'[name].js'
-    },
-}
+output:{
+    path:path.resolve(__dirname,'dist'),
+    filename:'[name].js'
+},
 ```
 
 ## 热更新
