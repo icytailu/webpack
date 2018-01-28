@@ -7,6 +7,10 @@
 - [css文件打包](#css文件打包)
 - [js文件打包](#js文件打包)
 - [html文件打包](#html文件打包)
+- [图片处理](#图片处理)
+- [css分离](#css分离)
+- [通过src引入img](#通过src引入img)
+- [打包和分离stylus](#打包和分离stylus)
 
 > WebPack是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言，并将其转换和打包为合适的格式供浏览器使用。
 
@@ -175,16 +179,6 @@ import css from './css/index.css';
 
 [↑ 返回Top](#webpack)
 
-### 以上方式是把样式引入到js中的但是不推荐，另一种解决方案
-
-1、安装 `extract-text-webpack-plugin` 插件
-
-```js
-npm install extract-text-webpack-plugin --save-dev
-```
-
-2、在配置文件中导入插件
-
 ## js文件打包
 
 > 一般在生产环境不会压缩，不然难调试
@@ -235,6 +229,161 @@ npm install --save-dev html-webpack-plugin
         template:'./src/index.html'
     })
 ]
+```
+
+[↑ 返回Top](#webpack)
+
+## 图片处理
+
+安装
+
+```js
+npm install --save-dev file-loader url-loader
+```
+
+配置
+
+```js
+//模块：例如解读CSS,图片如何转换，压缩
+module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },{
+         test:/\.(png|jpg|gif|jpeg)$/ ,
+         use:[{
+             loader:'url-loader',
+             options:{
+                 limit:5000
+             }
+         }]
+      }
+    ]
+},
+```
+
+[↑ 返回Top](#webpack)
+
+## css分离
+
+1、安装 `extract-text-webpack-plugin` 插件
+
+```js
+npm install extract-text-webpack-plugin --save-dev
+```
+
+在`webpack.config.js`文件引入插件(loader不需要引入，插件必须引入)
+
+```js
+const extractTextPlugin = require("extract-text-webpack-plugin")
+```
+
+2、在配置文件中导入插件
+
+```js
+module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: extractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      }
+    ]
+  },
+plugins: [
+    new extractTextPlugin('css/index.css')
+]
+```
+
+分离之后图片路径就不对了，解决办法设置一个绝对路径
+
+```js
+const website = {
+  publicPath: 'http://192.168.1.109:9527/'
+}
+// module.exports
+ output: {
+    path: path.resolve(__dirname, 'dist'), // 绝对路径
+    filename: 'bundle.js',
+    publicPath: website.publicPath
+  },
+```
+
+[↑ 返回Top](#webpack)
+
+## 通过src引入img
+
+之前引入图片都是以背景方式才可引入
+现在则要用img标签引入，需要用到插件`html-loader`
+
+安装
+
+```js
+npm install --save-dev html-loader
+```
+
+```js
+module: {
+rules: [
+    {
+    test: /\.css$/,
+    use: extractTextPlugin.extract({
+        fallback: "style-loader",
+        use: "css-loader"
+    })
+    },{
+    test:/\.(png|jpg|gif|jpeg)$/ ,
+    use:[{
+        loader:'url-loader',
+        options:{
+            limit:5000,
+            outputPath:'images/',
+        }
+    }]
+    }, {
+    test: /\.(htm|html)$/i,
+    use: [{
+        loader: 'html-loader'
+    }]
+    }
+]
+},
+```
+
+[↑ 返回Top](#webpack)
+
+## 打包和分离stylus
+
+首先安装
+
+```js
+npm install stylus-loader stylus --save-dev
+```
+
+要在entry.js引入
+
+```js
+import stylus from './css/coral.styl';
+```
+
+> webpack.config.js
+
+```js
+{
+    test: /\.styl$/,
+    use: extractTextPlugin.extract({
+        use: [{
+            loader: "css-loader"
+        }, {
+            loader: "stylus-loader"
+        }],
+        // use style-loader in development
+        fallback: "style-loader"
+    })
+}
 ```
 
 [↑ 返回Top](#webpack)
