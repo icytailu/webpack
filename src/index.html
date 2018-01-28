@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box"></div>
+  <pre>
+      const path = require('path');
+      module.exports={
+          //入口文件的配置项
+          entry:{
+              entry:'./src/entry.js'
+          },
+          //出口文件的配置项
+          output:{
+              //输出的路径，用了Node语法
+              path:path.resolve(__dirname,'dist'),
+              //输出的文件名称
+              filename:'bundle.js'
+          },
+          //模块：例如解读CSS,图片如何转换，压缩
+          module:{},
+          //插件，用于生产模版和各项功能
+          plugins:[],
+          //配置webpack开发服务功能
+          devServer:{
+            //设置基本目录结构
+            contentBase:path.resolve(__dirname,'dist'),
+            //服务器的IP地址，可以使用IP也可以使用localhost
+            host:'localhost',
+            //服务端压缩是否开启
+            compress:true,
+            //配置服务端口号
+            port:1717
+          }
+      }
+  </pre>
+</body>
+</html>

@@ -26,7 +26,7 @@ npm install --save-dev webpack
 
 ```js
  "devDependencies": {
-    "webpack": "^3.8.1"
+    "webpack": "^3.10.0"
   }
 ```
 
@@ -121,15 +121,18 @@ npm install webpack-dev-server --save-dev
 
 ## 打包css文件
 
-先引入
+- 步骤1：需要两个加载器`style-loader`,`css-loader`
+- 步骤2：在`module`中添加`rules`
+- 步骤3：引入样式
 
 ```js
+// 处理url
 npm install style-loader --save-dev
-
+// 处理样式，标签
 npm install css-loader --save-dev
 ```
 
-在`module`中添加`rules`
+- 步骤2：在`module`中添加`rules`
 
 ```js
 module:{
@@ -146,15 +149,38 @@ module:{
 }
 ```
 
+- 步骤3：引入样式
+
+在`entry.js`中引入样式
+
+```js
+import css from './css/index.css';
+```
+
+### 以上方式是把样式引入到js中的但是不推荐，另一种解决方案
+
+1、安装 `extract-text-webpack-plugin` 插件
+
+```js
+npm install extract-text-webpack-plugin --save-dev
+```
+
+2、在配置文件中导入插件
+
 ## js打包
 
-引入包 `uglifyjs-webpack-plugin`
+> 一般在生产环境不会压缩，不然难调试
+
+- 步骤1：引入包 `uglifyjs-webpack-plugin`
+- 步骤2：在`plugins`中添加`new uglify()`
+
+步骤1：引入包 `uglifyjs-webpack-plugin`(不用单独npm install)
 
 ```js
 const uglify = require('uglifyjs-webpack-plugin');
 ```
 
-然后在`package.json`添加`new uglify()`
+步骤2：在`plugins`中添加`new uglify()`
 
 ```js
 plugins:[
@@ -164,7 +190,8 @@ plugins:[
 
 ## html文件打包
 
-引入包
+- 步骤1：引入包 `html-webpack-plugin`(需要npm install)
+- 步骤2：在`plugins`中添加`htmlPlugin`
 
 ```js
 const htmlPlugin = require('html-webpack-plugin');
@@ -176,7 +203,7 @@ const htmlPlugin = require('html-webpack-plugin');
 npm install --save-dev html-webpack-plugin
 ```
 
-然后在`package.json`添加`htmlPlugin`
+然后在`plugins`添加`htmlPlugin`
 
 ```js
  plugins:[
