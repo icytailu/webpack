@@ -1,8 +1,16 @@
 # webpack
 
+- [安装](#安装)
+- [配置文件](#配置文件)
+- [配置入口以及出口文件](#配置入口以及出口文件)
+- [热更新](#热更新)
+- [css文件打包](#css文件打包)
+- [js文件打包](#js文件打包)
+- [html文件打包](#html文件打包)
+
 > WebPack是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言，并将其转换和打包为合适的格式供浏览器使用。
 
-安装
+## 安装
 
 ```js
 npm install -g webpack
@@ -36,7 +44,11 @@ npm install --save-dev webpack
 
 再建一个文件夹`dist` 放所有的生产后的文件
 
-## 建一个文件`webpack.config.js`
+[↑ 返回Top](#webpack)
+
+## 配置文件
+
+> `webpack.config.js`
 
 基本结构
 
@@ -56,7 +68,9 @@ module.exports={
 
 ```
 
-### 配置入口以及出口文件
+[↑ 返回Top](#webpack)
+
+## 配置入口以及出口文件
 
 ```js
 const path = require('path');
@@ -84,6 +98,8 @@ output:{
     filename:'[name].js'
 },
 ```
+
+[↑ 返回Top](#webpack)
 
 ## 热更新
 
@@ -119,7 +135,9 @@ npm install webpack-dev-server --save-dev
 
 然后在终端运行 `npm run server`
 
-## 打包css文件
+[↑ 返回Top](#webpack)
+
+## css文件打包
 
 - 步骤1：需要两个加载器`style-loader`,`css-loader`
 - 步骤2：在`module`中添加`rules`
@@ -132,7 +150,7 @@ npm install style-loader --save-dev
 npm install css-loader --save-dev
 ```
 
-- 步骤2：在`module`中添加`rules`
+在`module`中添加`rules`
 
 ```js
 module:{
@@ -149,13 +167,13 @@ module:{
 }
 ```
 
-- 步骤3：引入样式
-
 在`entry.js`中引入样式
 
 ```js
 import css from './css/index.css';
 ```
+
+[↑ 返回Top](#webpack)
 
 ### 以上方式是把样式引入到js中的但是不推荐，另一种解决方案
 
@@ -167,26 +185,28 @@ npm install extract-text-webpack-plugin --save-dev
 
 2、在配置文件中导入插件
 
-## js打包
+## js文件打包
 
 > 一般在生产环境不会压缩，不然难调试
 
 - 步骤1：引入包 `uglifyjs-webpack-plugin`
 - 步骤2：在`plugins`中添加`new uglify()`
 
-步骤1：引入包 `uglifyjs-webpack-plugin`(不用单独npm install)
+引入包 `uglifyjs-webpack-plugin`(不用单独npm install)
 
 ```js
 const uglify = require('uglifyjs-webpack-plugin');
 ```
 
-步骤2：在`plugins`中添加`new uglify()`
+在`plugins`中添加`new uglify()`
 
 ```js
 plugins:[
     new uglify()
 ]
 ```
+
+[↑ 返回Top](#webpack)
 
 ## html文件打包
 
@@ -216,3 +236,5 @@ npm install --save-dev html-webpack-plugin
     })
 ]
 ```
+
+[↑ 返回Top](#webpack)
