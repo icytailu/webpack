@@ -1,1 +1,0 @@
-document.querySelector('.box').innerText = "hello xin"

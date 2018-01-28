@@ -1,0 +1,1 @@
+document.querySelector('.box').innerText = "hello"

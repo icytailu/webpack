@@ -65,6 +65,7 @@ module.exports = {
         entry:'./src/entry.js'
     },
     output:{
+        // 绝对路径
         path:path.resolve(__dirname,'dist'),
         filename:'bundle.js'
     }
@@ -89,7 +90,7 @@ output:{
 ```js
 devServer:{
     contentBase:path.resolve(__dirname,'dist'),
-    host:'192.168.203.1',
+    host:'IP地址（或者localhost）',
     compress:true, //服务器压缩
     port:8000
 }
@@ -112,7 +113,7 @@ npm install webpack-dev-server --save-dev
 
 ```js
 "scripts": {
-    "server": "webpack-dev-server"
+    "server": "webpack-dev-server --open"
   }
 ```
 
