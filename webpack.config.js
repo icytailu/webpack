@@ -7,7 +7,7 @@ const extractTextPlugin = require("extract-text-webpack-plugin")
 const PurifyCssPlugin = require('purifycss-webpack')
 
 const website = {
-  publicPath: 'http://192.168.1.109:9527/'
+  publicPath: 'http://192.168.1.114:9527/'
 }
 
 module.exports = {
@@ -75,7 +75,7 @@ module.exports = {
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
-    host: '192.168.1.109',
+    host: '192.168.1.114',
     compress: true,
     port: 9527
   }
