@@ -1,8 +1,10 @@
 const path = require('path')
+const glob = require('glob')
 const webpack = require('webpack')
 // const uglify = require('uglifyjs-webpack-plugin')
 const htmlPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require("extract-text-webpack-plugin")
+const PurifyCssPlugin = require('purifycss-webpack')
 
 const website = {
   publicPath: 'http://192.168.1.109:9527/'
@@ -66,7 +68,10 @@ module.exports = {
       // 模板
       template:'./src/index.html'
     }),
-    new extractTextPlugin('css/index.css')
+    new extractTextPlugin('css/index.css'),
+    new PurifyCssPlugin({
+      paths:glob.sync(path.join(__dirname,'src/*.html'))
+    })
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),

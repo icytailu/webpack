@@ -11,6 +11,8 @@
 - [css分离](#css分离)
 - [通过src引入img](#通过src引入img)
 - [打包和分离stylus](#打包和分离stylus)
+- [postcss浏览器前缀](#postcss浏览器前缀)
+- [去掉无用的css](#去掉无用的css)
 
 > WebPack是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言，并将其转换和打包为合适的格式供浏览器使用。
 
@@ -384,6 +386,59 @@ import stylus from './css/coral.styl';
         fallback: "style-loader"
     })
 }
+```
+
+[↑ 返回Top](#webpack)
+
+## postcss浏览器前缀
+
+安装loader
+
+```js
+npm install --save-dev postcss-loader autoprefixer
+```
+
+引用
+
+```js
+rules: [
+  {
+    test: /\.css$/,
+    use: extractTextPlugin.extract({
+      fallback: "style-loader",
+      use: ["css-loader", "postcss-loader"]
+    })
+  }
+```
+
+创建postcss.config.js文件
+
+```js
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+}
+```
+
+[↑ 返回Top](#webpack)
+
+## 去掉无用的css
+
+安装
+
+```js
+npm i -D purifycss-webpack purify-css
+```
+
+引入
+
+> webpack.config.js
+
+```js
+const glob = require('glob')
+const PurifyCssPlugin = require('purifycss-webpack')
+
 ```
 
 [↑ 返回Top](#webpack)
