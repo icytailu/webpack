@@ -48,6 +48,7 @@ module.exports = {
                 loader: "stylus-loader"
             }],
             // use style-loader in development
+            // sass less 一样的步骤
             fallback: "style-loader"
         })
       }
