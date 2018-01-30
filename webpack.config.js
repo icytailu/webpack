@@ -23,7 +23,7 @@ module.exports = {
         test: /\.css$/,
         use: extractTextPlugin.extract({
           fallback: "style-loader",
-          use: "css-loader"
+          use: ["css-loader", "postcss-loader"]
         })
       },{
         test:/\.(png|jpg|gif|jpeg)$/ ,
