@@ -13,6 +13,8 @@
 - [打包和分离stylus](#打包和分离stylus)
 - [postcss浏览器前缀](#postcss浏览器前缀)
 - [去掉无用的css](#去掉无用的css)
+- [babel](#babel)
+- [调试](#调试)
 
 > WebPack是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言，并将其转换和打包为合适的格式供浏览器使用。
 
@@ -439,6 +441,55 @@ npm i -D purifycss-webpack purify-css
 const glob = require('glob')
 const PurifyCssPlugin = require('purifycss-webpack')
 
+```
+
+[↑ 返回Top](#webpack)
+
+## babel
+
+安装
+
+```bash
+npm install --save-dev babel-loader babel-core babel-preset-es2015
+```
+
+支持ES7，ES8
+
+安装`npm install --save-dev babel-preset-env`
+
+引入
+
+```js
+ {
+    test: /\.js$/,
+    use: {
+      loader: 'babel-loader',
+    },
+    // 忽视
+    exclude: /node_modules/
+  }
+```
+
+新建文件`.babelrc`
+
+```js
+{
+  "presets": ["env"]
+}
+```
+
+[↑ 返回Top](#webpack)
+
+## 调试
+
+```js
+/**
+* source-map  独立map 行 列 时间长 内容详细
+* cheap-moudle-source-map 独立 行 不包括列
+* eval-source-map 开发阶段 上线删除 行 列
+* cheap-moudle-eval-source-map 列
+*/
+devtool: 'eval-source-map',//开发阶段 调试
 ```
 
 [↑ 返回Top](#webpack)

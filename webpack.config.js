@@ -11,6 +11,13 @@ const website = {
 }
 
 module.exports = {
+  /**
+   * source-map  独立map 行 列 时间长 内容详细
+   * cheap-moudle-source-map 独立 行 不包括列
+   * eval-source-map 开发阶段 上线删除 行 列
+   * cheap-moudle-eval-source-map 列
+   */
+  devtool: 'eval-source-map',//开发阶段 调试
   entry: {
     entry: './src/entry.js'
   },
@@ -53,6 +60,13 @@ module.exports = {
             // sass less 一样的步骤
             fallback: "style-loader"
         })
+      }, {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+        },
+        // 忽视
+        exclude: /node_modules/
       }
     ]
   },
